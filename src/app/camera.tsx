@@ -23,9 +23,21 @@ export default function CameraScreen() {
 
   const takePicture = async () => {
     if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync();
+      const photo = await cameraRef.current.takePictureAsync({
+        base64: true, // ✅ Include base64 in the result
+        quality: 0.7, // optional, compress image
+      });
+
       if (photo) {
-        router.push({ pathname: "/result", params: { imageUri: photo.uri } });
+        console.log("Photo URI:", photo.uri); // file path
+        console.log("Photo Base64:", photo.base64); // base64 string
+
+        router.push({
+          pathname: "/result",
+          params: {
+            imageUri: photo.base64,
+          },
+        });
       }
     }
   };

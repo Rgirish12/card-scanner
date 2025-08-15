@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { CardData } from "@/types";
+import { CardData } from "src/types";
 
 interface CardItemProps {
   card: CardData;
