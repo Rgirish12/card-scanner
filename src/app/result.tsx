@@ -22,19 +22,14 @@ export default function ResultScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleExtract = async () => {
-    console.log("Extracting text from image...");
     const result = await extractBusinessCardInfo(imageUri);
 
     setIsLoading(false);
     setParsedData(result);
-    console.log("Extracted Info:", result);
   };
 
   useEffect(() => {
     if (imageUri) {
-      // performOCR(imageUri);
-      // console.log(imageUri);
-      console.log("calling");
       handleExtract();
     }
   }, [imageUri]);
@@ -55,7 +50,12 @@ export default function ResultScreen() {
       await AsyncStorage.setItem("scannedCards", JSON.stringify(cards));
 
       Alert.alert("Success", "Card saved successfully!", [
-        { text: "OK", onPress: () => router.push("/") },
+        {
+          text: "OK",
+          onPress: () => {
+            router.back();
+          },
+        },
       ]);
     } catch (error) {
       console.error("Save error:", error);

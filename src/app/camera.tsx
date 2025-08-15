@@ -29,10 +29,7 @@ export default function CameraScreen() {
       });
 
       if (photo) {
-        console.log("Photo URI:", photo.uri); // file path
-        console.log("Photo Base64:", photo.base64); // base64 string
-
-        router.push({
+        router.replace({
           pathname: "/result",
           params: {
             imageUri: photo.base64,
@@ -51,7 +48,7 @@ export default function CameraScreen() {
     });
 
     if (!result.canceled) {
-      router.push({
+      router.replace({
         pathname: "/result",
         params: { imageUri: result.assets[0].base64 },
       });

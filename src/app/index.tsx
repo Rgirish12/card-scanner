@@ -8,23 +8,24 @@ import {
 import { router } from "expo-router";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useIsFocused } from "@react-navigation/native";
 
 interface CardData {
   id: string;
   name?: string;
   email?: string;
   phone?: string;
-  company?: string;
+  companyName?: string;
   rawText: string;
   timestamp: string;
 }
 
 export default function HomeScreen() {
   const [cards, setCards] = useState<CardData[]>([]);
-
+  const isScreenFocused = useIsFocused();
   useEffect(() => {
     loadCards();
-  }, []);
+  }, [isScreenFocused]);
 
   const loadCards = async () => {
     try {
@@ -42,9 +43,17 @@ export default function HomeScreen() {
       <Text style={styles.cardName}>{item.name || "Unknown"}</Text>
       <Text>{item.email}</Text>
       <Text>{item.phone}</Text>
-      <Text>{item.company}</Text>
+      <Text>{item.companyName}</Text>
     </View>
   );
+  const handleClear = async () => {
+    try {
+      await AsyncStorage.removeItem("scannedCards");
+      setCards([]); // Clear the cards state
+    } catch (error) {
+      console.error("Error clearing cards:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -63,6 +72,13 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <Text style={styles.emptyText}>No cards scanned yet</Text>
+        }
+        ListFooterComponent={
+          cards.length > 0 ? (
+            <TouchableOpacity style={styles.scanButton} onPress={handleClear}>
+              <Text style={styles.scanButtonText}>Clear All Entries</Text>
+            </TouchableOpacity>
+          ) : undefined
         }
       />
     </View>

@@ -51,7 +51,6 @@ export async function extractBusinessCardInfo(base64Image: string) {
       throw new Error("Timed out waiting for analysis results.");
     }
 
-    console.log("Analysis result is:", analysisResult.analyzeResult.documents);
     const parsedData = parseBusinessCard(
       analysisResult.analyzeResult.documents
     );
