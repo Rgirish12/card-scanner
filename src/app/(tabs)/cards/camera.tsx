@@ -4,6 +4,7 @@ import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { LoadingSpinner } from "src/component/loadingSpinner";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>("back");
@@ -50,7 +51,7 @@ export default function CameraScreen() {
         setIsProcessing(false);
         console.log("photo", photo);
         router.replace({
-          pathname: "/result",
+          pathname: "/(tabs)/cards/result",
           params: {
             imageUri: photo.base64,
           },
@@ -72,7 +73,7 @@ export default function CameraScreen() {
 
       if (!result.canceled) {
         router.replace({
-          pathname: "/result",
+          pathname: "/(tabs)/cards/result",
           params: { imageUri: result.assets[0].base64 },
         });
       } else {
@@ -93,7 +94,7 @@ export default function CameraScreen() {
   //   );
   // }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={pickImage}>
@@ -119,7 +120,7 @@ export default function CameraScreen() {
           <LoadingSpinner message="Setting things up..." />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

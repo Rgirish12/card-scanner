@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Tesseract from "tesseract.js";
 import { extractBusinessCardInfo } from "src/utils/ocrService";
 import { ParsedDataType } from "src/types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ResultScreen() {
   const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
@@ -75,48 +76,52 @@ export default function ResultScreen() {
     );
   }
   return (
-    <ScrollView style={styles.container}>
-      {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView style={styles.container}>
+        {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Extracted Information</Text>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Extracted Information</Text>
 
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Name:</Text>
-          <Text style={styles.value}>{parsedData.name || "Not found"}</Text>
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Name:</Text>
+            <Text style={styles.value}>{parsedData.name || "Not found"}</Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Company Name:</Text>
+            <Text style={styles.value}>
+              {parsedData.companyName || "Not found"}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Email:</Text>
+            <Text style={[styles.value, styles.emailText]}>
+              {parsedData.email || "Not found"}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Phone:</Text>
+            <Text style={[styles.value, styles.phoneText]}>
+              {parsedData.phone || "Not found"}
+            </Text>
+          </View>
+
+          <View style={styles.infoRow}>
+            <Text style={styles.label}>Address:</Text>
+            <Text style={styles.value}>
+              {parsedData.address || "Not found"}
+            </Text>
+          </View>
         </View>
 
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Company Name:</Text>
-          <Text style={styles.value}>
-            {parsedData.companyName || "Not found"}
-          </Text>
-        </View>
-
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Email:</Text>
-          <Text style={[styles.value, styles.emailText]}>
-            {parsedData.email || "Not found"}
-          </Text>
-        </View>
-
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Phone:</Text>
-          <Text style={[styles.value, styles.phoneText]}>
-            {parsedData.phone || "Not found"}
-          </Text>
-        </View>
-
-        <View style={styles.infoRow}>
-          <Text style={styles.label}>Address:</Text>
-          <Text style={styles.value}>{parsedData.address || "Not found"}</Text>
-        </View>
-      </View>
-
-      <TouchableOpacity style={styles.saveButton} onPress={saveCard}>
-        <Text style={styles.saveButtonText}>Save Card</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.saveButton} onPress={saveCard}>
+          <Text style={styles.saveButtonText}>Save Card</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
