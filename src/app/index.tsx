@@ -40,10 +40,26 @@ export default function HomeScreen() {
     }
   };
 
+  const handleDelete = async (cardId: string) => {
+    try {
+      await AsyncStorage.removeItem("scannedCards");
+      const updatedCards = cards.filter((card) => card.id !== cardId);
+      setCards(updatedCards);
+      await AsyncStorage.setItem("scannedCards", JSON.stringify(updatedCards));
+    } catch (error) {
+      console.error("Error deleting card:", error);
+    }
+  };
+
   const renderCard = ({ item }: { item: CardData }) => (
     <View style={styles.cardItem}>
-      {/* Name */}
-      <Text style={styles.cardName}>{item.name || "Unknown"}</Text>
+      <View style={styles.flexRow}>
+        {/* Name */}
+        <Text style={styles.cardName}>{item.name || "Unknown"}</Text>
+        <TouchableOpacity onPress={() => handleDelete(item.id)}>
+          <MaterialIcons name="highlight-remove" size={20} color="black" />
+        </TouchableOpacity>
+      </View>
       {item.address && (
         <Text style={styles.cardAddress}>{item.address || "Unknown"}</Text>
       )}
@@ -167,5 +183,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginBottom: 8,
     color: "#777",
+  },
+  flexRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
   },
 });

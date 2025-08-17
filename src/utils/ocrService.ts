@@ -65,7 +65,7 @@ export function parseBusinessCard(documents: any[]): ParsedDataType {
   if (!documents || documents.length === 0) {
     return { name: "", address: "", email: "", phone: "", companyName: "" };
   }
-
+  console.log(documents);
   const fields = documents[0].fields || {};
 
   const name = fields.ContactNames?.valueArray?.[0]?.content?.trim() || "";

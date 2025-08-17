@@ -1,5 +1,11 @@
 import React from "react";
-import { View, ActivityIndicator, Text, StyleSheet } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Text,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 
 interface LoadingSpinnerProps {
   message?: string;
@@ -19,6 +25,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: Dimensions.get("screen").width,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#fff",

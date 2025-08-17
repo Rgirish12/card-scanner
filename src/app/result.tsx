@@ -39,7 +39,7 @@ export default function ResultScreen() {
       id: Date.now().toString(),
       ...parsedData,
       rawText: extractedText,
-      imageUri: imageUri,
+
       timestamp: new Date().toISOString(),
     };
 
@@ -87,7 +87,7 @@ export default function ResultScreen() {
         </View>
 
         <View style={styles.infoRow}>
-          <Text style={styles.label}>Name:</Text>
+          <Text style={styles.label}>Company Name:</Text>
           <Text style={styles.value}>
             {parsedData.companyName || "Not found"}
           </Text>
