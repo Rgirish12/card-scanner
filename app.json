@@ -33,8 +33,21 @@
     },
     "plugins": [
       "expo-router",
-      "expo-barcode-scanner"
+      "expo-barcode-scanner",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/splash-icon.png",
+          "dark": {
+            "image": "./assets/images/splash-icon.png",
+            "backgroundColor": "#000000"
+          },
+          "imageWidth": 200
+        }
+      ]
     ],
+
     "experiments": {
       "typedRoutes": true
     }
