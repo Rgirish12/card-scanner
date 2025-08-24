@@ -4,11 +4,7 @@ import ProfileForm from "src/component/ProfileForm";
 import ProfileDisplay from "src/component/ProfileDisplay";
 
 const index = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <ProfileDisplay />
-    </View>
-  );
+  return <ProfileDisplay />;
 };
 
 export default index;

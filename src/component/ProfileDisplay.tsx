@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import QRGenerator from "./QRGenerator"; // Adjust import path as needed
 
 export interface ParsedDataType {
   name: string;
@@ -113,6 +114,9 @@ const ProfileDisplay: React.FC<ProfileDisplayProps> = ({ profileData }) => {
           <ProfileField label="Phone" value={profile.phone} />
           <ProfileField label="Address" value={profile.address} />
         </View>
+
+        {/* QR Code Section */}
+        <QRGenerator profileData={profile} />
       </View>
     </ScrollView>
   );
