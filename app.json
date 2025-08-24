@@ -24,7 +24,11 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.ganu2003.scannerapp"
     },
     "web": {
       "bundler": "metro",
@@ -47,9 +51,15 @@
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "0009a4e5-0c31-4646-964a-f3783a5b2c44"
+      }
+    },
+    "owner": "ganu2003"
   }
 }

@@ -18,11 +18,7 @@ const KnowledgeBaseStack = () => {
         options={{
           title: "My Profile",
           // headerBackVisible: false,
-          headerRight: () => (
-            <Link asChild href="/(tabs)/profile/edit">
-              <Feather name="edit-2" size={24} color="black" />
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
