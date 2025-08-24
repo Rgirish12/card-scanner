@@ -25,7 +25,6 @@ const TabLayout = () => {
       <Tabs.Screen
         name="cards"
         options={{
-          title: "Ask the Assistant",
           tabBarLabel: "Cards",
           tabBarIcon: ({ focused }) => (
             <FontAwesome name="credit-card" size={24} color="black" />

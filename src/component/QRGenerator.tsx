@@ -33,20 +33,23 @@ const QRGenerator: React.FC<QRGeneratorProps> = ({
 
   // Create vCard format for better compatibility with contact apps
   const generateVCard = (data: ParsedDataType): string => {
+    console.log("Generating vCard for:", data); // Debug log
+
     const vCard = [
       "BEGIN:VCARD",
       "VERSION:3.0",
-      `FN:${data.name}`,
-      `N:${data.name};;;`,
+      `FN:${data.name || ""}`,
+      `N:${data.name || ""};;;`,
       data.email ? `EMAIL:${data.email}` : "",
       data.phone ? `TEL:${data.phone}` : "",
       data.companyName ? `ORG:${data.companyName}` : "",
       data.address ? `ADR:;;${data.address};;;;` : "",
       "END:VCARD",
     ]
-      .filter((line) => line !== "")
+      .filter((line) => line !== "" && !line.endsWith(":"))
       .join("\n");
 
+    console.log("Generated vCard:", vCard); // Debug log
     return vCard;
   };
 
@@ -55,11 +58,14 @@ const QRGenerator: React.FC<QRGeneratorProps> = ({
     return JSON.stringify(data, null, 2);
   };
 
-  const qrValue = generateVCard(profileData);
+  const qrValue = generateJSON(profileData); // Try JSON format instead
+
+  console.log("QR Value being generated (JSON):", qrValue); // Debug log
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> My Profile QR Code</Text>
+      <Text style={styles.title}>Profile QR Code</Text>
+      <Text style={styles.subtitle}>Scan to save contact information</Text>
 
       <View style={[styles.qrContainer, { backgroundColor }]}>
         <QRCode
@@ -70,6 +76,14 @@ const QRGenerator: React.FC<QRGeneratorProps> = ({
           logoSize={30}
           logoBackgroundColor="transparent"
         />
+      </View>
+
+      <View style={styles.infoContainer}>
+        <Text style={styles.infoText}>
+          Contains: {profileData.name}
+          {profileData.email && ` • ${profileData.email}`}
+          {profileData.phone && ` • ${profileData.phone}`}
+        </Text>
       </View>
     </View>
   );

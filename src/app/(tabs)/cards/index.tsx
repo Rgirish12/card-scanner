@@ -5,7 +5,7 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
@@ -101,8 +101,19 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Business Card Scanner</Text>
-
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.title}>Business Card Scanner</Text>
+        <Link asChild href="/(tabs)/cards/qr-scanner">
+          <MaterialIcons name="qr-code-scanner" size={24} color="black" />
+        </Link>
+      </View>
       <TouchableOpacity
         style={styles.scanButton}
         onPress={() => router.push("/(tabs)/cards/camera")}

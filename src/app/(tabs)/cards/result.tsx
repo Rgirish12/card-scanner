@@ -17,7 +17,10 @@ import { ParsedDataType } from "src/types";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ResultScreen() {
-  const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
+  const { imageUri, profileData } = useLocalSearchParams<{
+    imageUri: string;
+    profileData: string;
+  }>();
   const [extractedText, setExtractedText] = useState<string>("");
   const [parsedData, setParsedData] = useState<ParsedDataType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,11 +32,27 @@ export default function ResultScreen() {
     setParsedData(result);
   };
 
+  const handleProfileData = async () => {
+    try {
+      const result = JSON.parse(profileData) as ParsedDataType;
+      setIsLoading(false);
+      setParsedData(result);
+    } catch (e) {
+      console.error("Error parsing profileData:", e);
+    }
+  };
+
   useEffect(() => {
     if (imageUri) {
       handleExtract();
     }
   }, [imageUri]);
+
+  useEffect(() => {
+    if (profileData) {
+      handleProfileData();
+    }
+  }, [profileData]);
 
   const saveCard = async () => {
     const cardData = {
